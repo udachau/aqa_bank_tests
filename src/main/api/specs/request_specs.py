@@ -26,14 +26,12 @@ class RequestSpecs:
             headers = RequestSpecs.base_headers()
             headers["Authorization"] = f"Bearer {token}"
             return {
-                "headers": headers,
-                "base_url": Config.fetch("backendUrl")
+                headers
             }
         raise Exception("Failed to login")
 
     @staticmethod
     def unauth_headers():
         return {
-            "headers": RequestSpecs.base_headers(),
-            "base_url": Config.fetch("backendUrl")
+            RequestSpecs.base_headers(),
         }
