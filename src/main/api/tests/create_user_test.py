@@ -7,7 +7,7 @@ from src.main.api.requests.create_user_requester import CreateUserRequester
 @pytest.mark.api
 class TestCreateUser:
     def test_create_user_valid(self):
-        create_user_request = CreateUserRequest(username="Max3241", password="Pas!sw0rd", role="ROLE_USER")
+        create_user_request = CreateUserRequest(username="MaxT", password="Pas!sw0rd", role="ROLE_USER")
 
         response = CreateUserRequester(
             request_spec=RequestSpecs.auth_headers(username="admin", password="123456"),
