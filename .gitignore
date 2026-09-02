@@ -15,7 +15,7 @@ ENV/
 
 # Packaging
 build/
- allure-results/
+allure-results/
 dist/
 *.egg-info/
 .eggs/
