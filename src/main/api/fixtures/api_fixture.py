@@ -1,5 +1,5 @@
 import pytest
-from main.api.classes.api_manger import ApiManger
+from src.main.api.classes.api_manger import ApiManger
 
 
 @pytest.fixture
