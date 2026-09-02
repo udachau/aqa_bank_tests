@@ -1,3 +1,4 @@
+from src.main.api.models.login_user_request import LoginUserRequest
 from src.main.api.foundation.endpoint import Endpoint
 from src.main.api.foundation.requesters.validate_requesters import ValidateCrudRequesters
 from src.main.api.models.create_user_request import CreateUserRequest
@@ -31,3 +32,11 @@ class AdminSteps(BaseSteps):
             Endpoint.ADMIN_CREATE_USER,
             ResponseSpecs.request_bad()
         ).post(create_user_request)
+
+    def login_user(self, login_user_request: LoginUserRequest):
+        response = ValidateCrudRequesters(
+            RequestSpecs.auth_headers(username="admin", password="123456"),
+            Endpoint.LOGIN_USER,
+            ResponseSpecs.request_ok()
+        ).post(login_user_request)
+        return response

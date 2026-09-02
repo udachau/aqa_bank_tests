@@ -30,6 +30,4 @@ class RequestSpecs:
 
     @staticmethod
     def unauth_headers():
-        return {
-            RequestSpecs.base_headers(),
-        }
+        return RequestSpecs.base_headers()

@@ -1,8 +1,6 @@
 import logging
-
 import pytest
 from typing import List, Any
-
 from src.main.api.classes.api_manger import ApiManger
 from src.main.api.models.create_user_response import CreateUserResponse
 
