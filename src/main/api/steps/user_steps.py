@@ -15,9 +15,9 @@ class UserSteps(BaseSteps):
         ).post()
         return response
 
-    def deposit_account(self, deposit_account_request: DepositAccountRequest):
+    def deposit_account(self, create_user_request: CreateUserRequest, deposit_account_request: DepositAccountRequest):
         response = ValidateCrudRequesters(
-            RequestSpecs.auth_headers(username=deposit_account_request.username, password=deposit_account_request.password),
+            RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.DEPOSIT_ACCOUNT,
             ResponseSpecs.request_ok()
         ).post(deposit_account_request)
