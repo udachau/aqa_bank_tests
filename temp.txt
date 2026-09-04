@@ -6,17 +6,3 @@ repay | при создании пользака ROLE_CREDIT + надо знат
 
 Либо хранить в локальных переменных, либо через get запросы получать инфу и реализацию спрятать
 Либо аналогично с токеном куда сохранить и тянуть
-
-{ response credit
-  "id": 168,
-  "amount": 5000,
-  "termMonths": 12,
-  "balance": 5000,
-  "creditId": 1
-}
-
-{ request repay
-  "creditId": 1,
-  "accountId": 1,
-  "amount": 1000
-}

@@ -27,18 +27,18 @@ def transfer_account_request(api_manager, create_user_request, deposit_account_r
     account1 = api_manager.user_steps.deposit_account(create_user_request, deposit_account_request)
     from_id = account1.id
     account2 = api_manager.user_steps.create_account(create_user_request)
+    to_id = account2.id
+    amount = 1500 # допилить генератор
     # подумать как быть с 2 пользаками, скорее всего внутри с помощью админа + генератора просто запиливать его
     # чтобы обойти огриничение фикстры + через гет получать инфу для ассерта
     # или вообще другая логика
-    to_id = account2.id
-    amount = 1500 # допилить генератор
     user_request = TransferAccountRequest(fromAccountId=from_id, toAccountId=to_id, amount=amount)
     return user_request
 
 @pytest.fixture
 def create_credituser_request(api_manager):
     user_request = RandomModelGenerator.generate(CreateUserRequest)
-    user_request.role = "ROLE_CREDIT_SECRET"
+    user_request.role = "ROLE_CREDIT_SECRET" # возможно улучшить реализацию через генератор, но не точно
     api_manager.admin_steps.create_user(user_request)
     return user_request
 
@@ -58,7 +58,6 @@ def repay_account_request(api_manager, create_credituser_request, credit_account
     for_credit_id = credit1.creditId
     for_credit_account = credit1.id
     amount = credit1.amount
-
     user_request = RepayAccountRequest(creditId=for_credit_id, accountId=for_credit_account, amount=amount)
     # Пока идея сделать get метод в реквестер и через него получать необходимую инфу. И ее же использовать для ассерта
     # Либо за счет степов хранить все
