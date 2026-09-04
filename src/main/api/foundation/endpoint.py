@@ -1,5 +1,10 @@
 from enum import Enum
-
+from src.main.api.models.credit_account_request import CreditAccountRequest
+from src.main.api.models.credit_account_response import CreditAccountResponse
+from src.main.api.models.repay_account_request import RepayAccountRequest
+from src.main.api.models.repay_account_response import RepayAccountResponse
+from src.main.api.models.transfer_account_request import TransferAccountRequest
+from src.main.api.models.transfer_account_response import TransferAccountResponse
 from src.main.api.models.deposit_account_request import DepositAccountRequest
 from src.main.api.models.deposit_account_response import DepositAccountResponse
 from src.main.api.models.create_account_response import CreateAccountResponse
@@ -46,4 +51,22 @@ class Endpoint(Enum):
         request_model = DepositAccountRequest,
         url = "/account/deposit",
         response_model = DepositAccountResponse
+    )
+
+    TRANSFER_ACCOUNT = EndpointConfiguration(
+        request_model = TransferAccountRequest,
+        url = "/account/transfer",
+        response_model= TransferAccountResponse
+    )
+
+    CREDIT_ACCOUNT = EndpointConfiguration(
+        request_model = CreditAccountRequest,
+        url = "/credit/request",
+        response_model = CreditAccountResponse
+    )
+
+    REPAY_ACCOUNT = EndpointConfiguration(
+        request_model = RepayAccountRequest,
+        url = "/credit/repay",
+        response_model = RepayAccountResponse
     )

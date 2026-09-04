@@ -1,25 +1,22 @@
-curl -X 'POST' \
-  'http://localhost:4111/api/admin/create' \
-  -H 'accept: */*' \
-  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3ODgzNzg3MTMsImV4cCI6MTc4ODYzNzkxMywicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6ImFkbWluIn0.utVqW1MltnXEUeGcdkcBBZhduOC2GhK85Mah6jkFGPjWu0tI0TO5Zd6VPnQEEB3F-ppy6HDk4_U788PRziRyxx_WY5R-8xUAz6VW_J5m5sB4BF_ZRzAtTmkWcJx6VbfTrS8mhJKBcNr7rjB4z00U-FAszaTHMeXFheINRXfnNWSeWU57HqTdkjeF-CKssG0-NuxGJO4LXUNkcjT0Fc8A7NKnyuymjtI-lOeIRU1dhQeY8Bl_1DBL7ARyb_RD-2AGFqRY5li2UOkEtitUoA8Sq1gd2gPCqvXMPSlyBWWCZLNaURFVv9xnJnyMnnn4lfYLsbNR36AQPnKcRnUTCGUqVb9dgIh1c4dJTKg0utHe0IumbQERcrlfm_l9ZvHSfzKSLh1acFnY-QIyOdJBv98rbmjExOPs46_wGBiryM9LwkrmdZWIFTpmVHHgEfGbZAVprTCbtCw2yshEwPDDprHIzCg7hZvJysmnJczHFpDBmhWCK7RlrNEm2Al54ko-OBZeuby-3tRY71BYvMyDPW5ZtqWF4IG_Ts7nLKY0GTqfRx_W1kwwNur-7o6h14mlO0G5OplhfL2lPyEfJ45sioUWW50YUxlCj1DnxbnK_4pTJMinwA5ALUaMfzvLU6aQiKcJ7znOcEosRXLowhGb66wh0mxjGVeswWVjmGbNG2AVTIc' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "id": 144, пользака (user_id)
-  "username": "Max11",
-  "password": "Pas!sw0rd",
-  "role": "ROLE_USER"
-}'
-{
-/api/account/create
-{
-  "id": 99, счета (accountId)
-  "number": "9506352",
-  "balance": 0
+Тесты на:
+deposit  | надо знать id счета (accountId) | минимально 1000, максимально - 9000
+transfer | надо знать 2id счетов (accountId) | минимально 500, максимум - 10000
+credit | при создании пользака ROLE_CREDIT + надо знать accountId | минимальная сумма кредита - 5000, максимальная 15000
+repay | при создании пользака ROLE_CREDIT + надо знать accountId + надо знать сумму кредита, чтобы погасить его за 1 раз целиком
+
+Либо хранить в локальных переменных, либо через get запросы получать инфу и реализацию спрятать
+Либо аналогично с токеном куда сохранить и тянуть
+
+{ response credit
+  "id": 168,
+  "amount": 5000,
+  "termMonths": 12,
+  "balance": 5000,
+  "creditId": 1
 }
 
-{
-  "id": 100,
-  "number": "1353929",
-  "balance": 0
+{ request repay
+  "creditId": 1,
+  "accountId": 1,
+  "amount": 1000
 }
-
