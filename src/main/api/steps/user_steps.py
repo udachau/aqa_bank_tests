@@ -66,13 +66,13 @@ class UserSteps(BaseSteps):
     def invalid_transfer_account(
             self,
             create_user_request: CreateUserRequest,
-            user_request: TransferAccountRequest
+            invalid_transfer_account_request: TransferAccountRequest
     ):
         response = CrudRequester(
             RequestSpecs.auth_headers(username=create_user_request.username, password=create_user_request.password),
             Endpoint.TRANSFER_ACCOUNT,
             ResponseSpecs.request_bad()
-        ).post(user_request)
+        ).post(invalid_transfer_account_request)
         return response
 
     def credit_account(
@@ -117,12 +117,12 @@ class UserSteps(BaseSteps):
     def invalid_repay_account(
             self,
             create_credituser_request: CreateUserRequest,
-            user_request: RepayAccountRequest
+            invalid_repay_account_request: RepayAccountRequest
     ):
         response = CrudRequester(
             RequestSpecs.auth_headers(username=create_credituser_request.username,
                                       password=create_credituser_request.password),
             Endpoint.REPAY_ACCOUNT,
             ResponseSpecs.bad_content()
-        ).post(user_request)
+        ).post(invalid_repay_account_request)
         return response

@@ -47,11 +47,24 @@ def transfer_account_request(
     account2 = api_manager.user_steps.create_account(create_user_request)
     to_id = account2.id
     amount = 1500 # допилить генератор
-    # подумать как быть с 2 пользаками, скорее всего внутри с помощью админа + генератора просто запиливать его
-    # чтобы обойти огриничение фикстры + через гет получать инфу для ассерта
-    # или вообще другая логика
     user_request = TransferAccountRequest(fromAccountId=from_id, toAccountId=to_id, amount=amount)
     return user_request
+
+@pytest.fixture
+def invalid_transfer_account_request(
+        api_manager: ApiManger,
+        create_user_request: CreateUserRequest,
+        deposit_account_request: DepositAccountRequest,
+        request
+    ) -> TransferAccountRequest:
+        amount_dep, amount_transf = request.param
+        deposit_account_request.amount = amount_dep
+        account1 = api_manager.user_steps.deposit_account(create_user_request, deposit_account_request)
+        from_id = account1.id
+        account2 = api_manager.user_steps.create_account(create_user_request)
+        to_id = account2.id
+        user_request = TransferAccountRequest(fromAccountId=from_id, toAccountId=to_id, amount=amount_transf)
+        return user_request
 
 @pytest.fixture
 def credit_account_request(api_manager: ApiManger, create_credituser_request: CreateUserRequest):
@@ -73,6 +86,17 @@ def repay_account_request(
     for_credit_account = credit1.id
     amount = credit1.amount
     user_request = RepayAccountRequest(creditId=for_credit_id, accountId=for_credit_account, amount=amount)
-    # Пока идея сделать get метод в реквестер и через него получать необходимую инфу. И ее же использовать для ассерта
-    # Либо за счет степов хранить все
+    return user_request
+
+@pytest.fixture
+def invalid_repay_account_request(
+        api_manager: ApiManger,
+        create_credituser_request: CreateUserRequest,
+        credit_account_request: CreditAccountRequest
+):
+    credit1 = api_manager.user_steps.credit_account(create_credituser_request, credit_account_request)
+    credit_id = credit1.creditId
+    credit_account = credit1.id
+    amount = credit1.amount - 100
+    user_request = RepayAccountRequest(creditId=credit_id, accountId=credit_account, amount=amount)
     return user_request
