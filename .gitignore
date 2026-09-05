@@ -12,6 +12,7 @@ venv/
 env/
 ENV/
 .env
+allure-results/
 
 # Packaging
 build/
@@ -55,7 +56,7 @@ Thumbs.db
 # =========================
 # Logs / temporary files
 # =========================
-
+temp.txt
 *.log
 *.tmp
 *.temp

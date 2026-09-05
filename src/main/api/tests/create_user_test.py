@@ -12,12 +12,17 @@ class TestCreateUser:
         "create_user_request",
         [RandomModelGenerator.generate(CreateUserRequest)],
     )
-    def test_create_user_valid(self, api_manager: ApiManger, create_user_request: CreateUserRequest, db_session: Session):
+    def test_create_user_valid(
+            self,
+            api_manager: ApiManger,
+            create_user_request: CreateUserRequest,
+            db_session: Session
+    ):
         response = api_manager.admin_steps.create_user(create_user_request)
 
         # create_user_response = CreateUserResponse(**response.json()) # как работает?7
-        assert create_user_request.username == response.username
-        assert create_user_request.role == response.role
+        assert create_user_request.username == response.username, 'У пользователя неправильный username или он не создан'
+        assert create_user_request.role == response.role, 'У пользователя неправильная роль или он не создан'
 
         user_from_db = User.get_user_by_username(db_session, create_user_request.username)
         assert user_from_db.username == create_user_request.username, 'Созданного пользователя нет в БД'
@@ -43,5 +48,18 @@ class TestCreateUser:
         user_from_db = User.get_user_by_username(db_session, create_user_request.username)
 
         assert user_from_db is None, 'Пользователь создан, ошибка'
+
+    def test_create_2user_valid(
+            self,
+            api_manager: ApiManger,
+            create_2users_request: tuple[CreateUserRequest, CreateUserRequest],
+    ):
+        user1, user2 = create_2users_request
+        response = api_manager.admin_steps.create_user(user1)
+        assert user1.username == response.username, 'У пользователя 1 неправильный username или он не создан'
+        assert user1.role == response.role, 'У пользователя неправильная роль или он не создан'
+        response = api_manager.admin_steps.create_user(user2)
+        assert user2.username == response.username, 'У пользователя 2 неправильный username или он не создан'
+        assert user2.role == response.role, 'У пользователя неправильная роль или он не создан'
 
 
