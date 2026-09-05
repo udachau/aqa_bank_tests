@@ -21,3 +21,16 @@ class ResponseSpecs:
             assert response.status_code == HTTPStatus.BAD_REQUEST, response.text
        return confirm
 
+    @staticmethod
+    def conflict():
+        def confirm(response: Response):
+            assert response.status_code == HTTPStatus.CONFLICT, response.text
+        return confirm
+
+    @staticmethod
+    def bad_content():
+        def confirm(response: Response):
+            assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY, response.text
+        return confirm
+
+
