@@ -19,4 +19,6 @@ class TestCreateAccount:
     def test_max_account_creation(self, api_manager: ApiManger, create_user_request: CreateUserRequest):
         api_manager.user_steps.create_account(create_user_request)
         api_manager.user_steps.create_account(create_user_request)
-        api_manager.user_steps.create_max_account(create_user_request)
+        response = api_manager.user_steps.create_max_account(create_user_request)
+
+        assert response.text == '{"error":"User already has maximum number of accounts(2)"}', "Сработала другая ошибка"

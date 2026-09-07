@@ -57,9 +57,9 @@ class TestCreateUser:
         user1, user2 = create_2users_request
         response = api_manager.admin_steps.create_user(user1)
         assert user1.username == response.username, 'У пользователя 1 неправильный username или он не создан'
-        assert user1.role == response.role, 'У пользователя неправильная роль или он не создан'
+        assert user1.role == response.role, 'У пользователя 1 неправильная роль или он не создан'
         response = api_manager.admin_steps.create_user(user2)
         assert user2.username == response.username, 'У пользователя 2 неправильный username или он не создан'
-        assert user2.role == response.role, 'У пользователя неправильная роль или он не создан'
+        assert user2.role == response.role, 'У пользователя 2 неправильная роль или он не создан'
 
 

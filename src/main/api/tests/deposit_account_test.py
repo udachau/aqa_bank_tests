@@ -27,5 +27,7 @@ class TestDepositAccount:
             amount: float
     ):
         deposit_account_request.amount = amount
-        api_manager.user_steps.invalid_deposit_account(create_user_request, deposit_account_request)
+        response = api_manager.user_steps.invalid_deposit_account(create_user_request, deposit_account_request)
+
+        assert response.text == '{"error":"Amount must be between 1000 and 9000"}', "Сработала другая ошибка"
 

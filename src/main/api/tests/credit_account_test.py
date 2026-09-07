@@ -30,4 +30,6 @@ class TestCreditAccount:
             amount: float
     ):
         credit_account_request.amount = amount
-        api_manager.user_steps.invalid_credit_account(create_credituser_request, credit_account_request)
+        response = api_manager.user_steps.invalid_credit_account(create_credituser_request, credit_account_request)
+
+        assert response.text == '{"error":"Amount must be between 5000 and 15000"}', "Сработала другая ошибка"
