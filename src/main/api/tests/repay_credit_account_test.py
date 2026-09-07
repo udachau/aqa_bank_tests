@@ -28,3 +28,4 @@ class TestRepayCreditAccount:
         response = api_manager.user_steps.invalid_repay_account(create_credituser_request, invalid_repay_account_request)
 
         assert response.json()["error"].split(".")[0] + "." == "The amount is not enough.", "Сработала другая ошибка"
+        # можно срезов с начала
